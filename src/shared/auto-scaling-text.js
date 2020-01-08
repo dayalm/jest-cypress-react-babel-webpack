@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styles from './auto-scaling-text.module.css'
-
+// dummy comment
 function getScale(node) {
   if (!node) {
-    return 2
+    return 1
   }
   const parentNode = node.parentNode
 
