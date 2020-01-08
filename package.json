@@ -13,8 +13,8 @@
     "postbuild": "cp ./public/index.html ./dist/index.html",
     "start": "serve --no-clipboard --single --listen 8080 dist",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|json|css|html|md)\"",
-    "lint": "eslint --ignore-path .gitignore .",
-    "validate": "npm run lint && npm run test && npm run build",
+    "lint": "jest --config test/jest.lint.js",
+    "validate": "npm run test && npm run build",
     "setup": "npm install && npm run validate"
   },
   "keywords": [],
@@ -40,6 +40,9 @@
     "is-ci-cli": "^2.0.0",
     "jest": "^24.9.0",
     "jest-emotion": "^10.0.17",
+    "jest-runner-eslint": "^0.7.5",
+    "jest-watch-select-projects": "^1.0.0",
+    "jest-watch-typeahead": "^0.4.2",
     "prettier": "^1.19.1",
     "prop-types": "^15.7.2",
     "serve": "^11.2.0",
@@ -54,6 +57,23 @@
     "emotion-theming": "^10.0.19",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
+  },
+  "jest-runner-eslint": {
+    "cliOptions": {
+      "ignorePath": "./.gitignore"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && npm run build"
+    }
+  },
+  "lint-staged": {
+    "**/*.+(js|json|css|html|md)": [
+      "prettier",
+      "jest --findRelatedTests",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
